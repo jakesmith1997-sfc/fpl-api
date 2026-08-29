@@ -1,0 +1,264 @@
+{
+  "base_url": "https://fantasy.premierleague.com/api/",
+  "season": "2026/27",
+  "probed_at": "2026-08-29T13:00:00Z",
+  "disclaimer": "Unofficial. Not affiliated with the Premier League. Endpoints can change without notice.",
+  "endpoints": [
+    {
+      "id": "bootstrap-static",
+      "method": "GET",
+      "path": "/bootstrap-static/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Core payload: players, teams, events, chips, rules, settings",
+      "response": "object",
+      "top_level_keys": ["chips", "events", "game_settings", "game_config", "phases", "teams", "total_players", "element_stats", "element_types", "elements"]
+    },
+    {
+      "id": "elements",
+      "method": "GET",
+      "path": "/elements/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Player list only (same objects as bootstrap-static.elements)",
+      "response": "array"
+    },
+    {
+      "id": "events",
+      "method": "GET",
+      "path": "/events/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Gameweek list only",
+      "response": "array"
+    },
+    {
+      "id": "fixtures",
+      "method": "GET",
+      "path": "/fixtures/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "All season fixtures",
+      "response": "array",
+      "query": [
+        {"name": "event", "type": "integer", "description": "Filter to one gameweek"},
+        {"name": "future", "type": "integer", "description": "Set to 1 for remaining fixtures only"}
+      ]
+    },
+    {
+      "id": "element-summary",
+      "method": "GET",
+      "path": "/element-summary/{element_id}/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Player remaining fixtures, this-season history, past-season totals",
+      "response": "object",
+      "top_level_keys": ["fixtures", "history", "history_past"]
+    },
+    {
+      "id": "event-live",
+      "method": "GET",
+      "path": "/event/{event_id}/live/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Live gameweek stats and points explain for every player",
+      "response": "object",
+      "top_level_keys": ["elements"]
+    },
+    {
+      "id": "event-status",
+      "method": "GET",
+      "path": "/event-status/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Bonus calculation and league update status",
+      "response": "object",
+      "top_level_keys": ["status", "leagues"]
+    },
+    {
+      "id": "dream-team",
+      "method": "GET",
+      "path": "/dream-team/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Season-to-date official dream team",
+      "response": "object",
+      "top_level_keys": ["top_player", "team"]
+    },
+    {
+      "id": "dream-team-event",
+      "method": "GET",
+      "path": "/dream-team/{event_id}/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Official dream team for a gameweek",
+      "response": "object",
+      "top_level_keys": ["top_player", "team"]
+    },
+    {
+      "id": "entry",
+      "method": "GET",
+      "path": "/entry/{entry_id}/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Public manager profile, ranks, leagues, last-deadline value",
+      "response": "object"
+    },
+    {
+      "id": "entry-history",
+      "method": "GET",
+      "path": "/entry/{entry_id}/history/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Per-GW points/rank/bank/value, past seasons, chips used",
+      "response": "object",
+      "top_level_keys": ["current", "past", "chips"]
+    },
+    {
+      "id": "entry-transfers",
+      "method": "GET",
+      "path": "/entry/{entry_id}/transfers/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Full transfer history",
+      "response": "array"
+    },
+    {
+      "id": "entry-picks",
+      "method": "GET",
+      "path": "/entry/{entry_id}/event/{event_id}/picks/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Locked 15-man squad, captain, chip, auto-subs for a GW",
+      "response": "object",
+      "top_level_keys": ["active_chip", "automatic_subs", "entry_history", "picks"]
+    },
+    {
+      "id": "classic-standings",
+      "method": "GET",
+      "path": "/leagues-classic/{league_id}/standings/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Classic league standings",
+      "response": "object",
+      "top_level_keys": ["league", "standings", "last_updated_data", "new_entries"],
+      "query": [
+        {"name": "page_standings", "type": "integer"},
+        {"name": "page_new_entries", "type": "integer"},
+        {"name": "phase", "type": "integer", "description": "1 = Overall; see bootstrap phases"}
+      ]
+    },
+    {
+      "id": "league-cup-status",
+      "method": "GET",
+      "path": "/league/{league_id}/cup-status/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "League cup qualification state",
+      "response": "object"
+    },
+    {
+      "id": "regions",
+      "method": "GET",
+      "path": "/regions/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Manager registration regions / countries",
+      "response": "array"
+    },
+    {
+      "id": "set-piece-notes",
+      "method": "GET",
+      "path": "/team/set-piece-notes/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Official set-piece taker notes per club",
+      "response": "object",
+      "top_level_keys": ["last_updated", "teams"]
+    },
+    {
+      "id": "most-valuable-teams",
+      "method": "GET",
+      "path": "/stats/most-valuable-teams/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Most valuable FPL squads",
+      "response": "array"
+    },
+    {
+      "id": "best-classic-private-leagues",
+      "method": "GET",
+      "path": "/stats/best-classic-private-leagues/",
+      "auth": "none",
+      "status_when_probed": 200,
+      "summary": "Highest-scoring private classic leagues",
+      "response": "array"
+    },
+    {
+      "id": "me",
+      "method": "GET",
+      "path": "/me/",
+      "auth": "session-cookie",
+      "status_when_probed": 200,
+      "summary": "Current user. Unauthenticated response is a stub.",
+      "response": "object",
+      "top_level_keys": ["player", "watched"]
+    },
+    {
+      "id": "my-team",
+      "method": "GET",
+      "path": "/my-team/{entry_id}/",
+      "auth": "session-cookie",
+      "status_when_probed": 403,
+      "summary": "Private live squad, bank, free transfers, chips"
+    },
+    {
+      "id": "transfers-latest",
+      "method": "GET",
+      "path": "/entry/{entry_id}/transfers-latest/",
+      "auth": "session-cookie",
+      "status_when_probed": 403,
+      "summary": "Transfers staged in the current gameweek"
+    },
+    {
+      "id": "transfers-write",
+      "method": "POST",
+      "path": "/transfers/",
+      "auth": "session-cookie",
+      "status_when_probed": 403,
+      "summary": "Submit transfers. Write endpoint — do not scrape."
+    },
+    {
+      "id": "entry-cup",
+      "method": "GET",
+      "path": "/entry/{entry_id}/cup/",
+      "auth": "none",
+      "status_when_probed": 404,
+      "summary": "Historic cup path. Dead in 2026/27; use entry leagues + cup-status."
+    },
+    {
+      "id": "bootstrap-dynamic",
+      "method": "GET",
+      "path": "/bootstrap-dynamic/",
+      "auth": "none",
+      "status_when_probed": 404,
+      "summary": "Removed historic endpoint"
+    },
+    {
+      "id": "h2h-standings-legacy",
+      "method": "GET",
+      "path": "/leagues-h2h-standings/{league_id}/",
+      "auth": "none",
+      "status_when_probed": 404,
+      "summary": "Legacy H2H standings. Often 404."
+    },
+    {
+      "id": "h2h-matches",
+      "method": "GET",
+      "path": "/leagues-h2h-matches/league/{league_id}/",
+      "auth": "none",
+      "status_when_probed": 404,
+      "summary": "H2H matches. Often 404; try with a real H2H league id."
+    }
+  ]
+}
